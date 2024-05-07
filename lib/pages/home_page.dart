@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
               height: 50,
             ),
             Container(
-              alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,6 +122,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  const Text(
+                    'Escolha a data clicando na caixa',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white),
+                  ),
                 ],
               ),
             ),
@@ -130,7 +136,6 @@ class _HomePageState extends State<HomePage> {
               height: 30,
             ),
             Container(
-              alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -160,6 +165,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  const Text(
+                    'Escolha a data clicando na caixa',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white),
+                  ),
                 ],
               ),
             ),
@@ -178,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white),
                   ),
                   OutlinedButton(
-                    onPressed: () => {_obterValorDataFinal()},
+                    onPressed: () => {},
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 2, color: Colors.purple),
                         shape: const RoundedRectangleBorder(
