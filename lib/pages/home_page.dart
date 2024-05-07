@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,10 +8,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime initialDate = DateTime(2024, 06, 04);
-  DateTime finalDate = DateTime(2024, 06, 04);
-  Duration diferenceDates = Duration(days: 30);
-  String diferenceDatesS = '';
+  DateTime _dataInicial = DateTime.now();
+  DateTime _dataFinal = DateTime.now();
+  Duration diferencaEntreDatas = Duration(days: 1);
+
+  void _obterValorDataInicial() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime(3000))
+        .then((value) => {
+              setState(() {
+                _dataInicial = value!;
+              }),
+            });
+  }
+
+  void _obterValorDataFinal() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime(3000))
+        .then((value) => {
+              setState(() {
+                _dataFinal = value!;
+              }),
+            });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,34 +99,28 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  TextFormField(
-                    onChanged: (text) => {
-                      setState(() {
-                        initialDate = DateTime.parse(text);
-                      })
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                        //hintText: initialDateS,
-                        //hintStyle: TextStyle(
-                        //color: Colors.white,
-                        //fontWeight: FontWeight.w400,
-                        //fontSize: 20,
-                        //),
-                        helperText:
-                            'Insira a data no seguinte formato: 2024-08-13',
-                        helperStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
+                  ElevatedButton(
+                    onPressed: () => {_obterValorDataInicial()},
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 540,
+                      height: 60,
+                      child: Text(
+                        '$_dataInicial',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
                         ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                        ),
-                        border: OutlineInputBorder()),
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -122,28 +139,30 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  TextFormField(
-                    onChanged: (text) => {
-                      setState(() {
-                        finalDate = DateTime.parse(text);
-                      })
+                  ElevatedButton(
+                    onPressed: () => {
+                      _obterValorDataFinal(),
                     },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                        helperText:
-                            'Insira a data no seguinte formato: 2024-08-13',
-                        helperStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 540,
+                      height: 60,
+                      child: Text(
+                        '$_dataFinal',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
                         ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                        ),
-                        border: OutlineInputBorder()),
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -162,23 +181,28 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        //labelText: "Data Inicial",
-                        hintText: diferenceDatesS,
-                        hintStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
+                  ElevatedButton(
+                    onPressed: () => {},
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 540,
+                      height: 60,
+                      child: Text(
+                        '${diferencaEntreDatas.inDays}',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
                         ),
-                        labelStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                        ),
-                        border: const OutlineInputBorder()),
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -189,8 +213,7 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               onPressed: () => {
                 setState(() {
-                  diferenceDates = finalDate.difference(initialDate);
-                  diferenceDatesS = diferenceDates.inDays.toString();
+                  diferencaEntreDatas = _dataFinal.difference(_dataInicial);
                 }),
               },
               child: Container(
