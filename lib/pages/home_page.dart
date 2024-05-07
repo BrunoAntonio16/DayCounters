@@ -9,20 +9,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   DateTime _dataInicial = DateTime.now();
+  var _dataInicialFormat;
   DateTime _dataFinal = DateTime.now();
-  Duration diferencaEntreDatas = Duration(days: 1);
+  var _dataFinalFormat;
+  Duration diferencaEntreDatas = const Duration(days: 1);
 
   void _obterValorDataInicial() {
     showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime(3000))
-        .then((value) => {
-              setState(() {
-                _dataInicial = value!;
-              }),
-            });
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(3000),
+    ).then((value) => {
+          setState(() {
+            _dataInicial = value!;
+            _dataInicialFormat = "${value!.day}-${value.month}-${value.year}";
+          }),
+        });
   }
 
   void _obterValorDataFinal() {
@@ -34,6 +37,7 @@ class _HomePageState extends State<HomePage> {
         .then((value) => {
               setState(() {
                 _dataFinal = value!;
+                _dataFinalFormat = "${value!.day}-${value.month}-${value.year}";
               }),
             });
   }
@@ -53,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
@@ -89,36 +93,70 @@ class _HomePageState extends State<HomePage> {
               height: 50,
             ),
             Container(
+              alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Data inicial',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  ElevatedButton(
+                  OutlinedButton(
                     onPressed: () => {_obterValorDataInicial()},
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(width: 2, color: Colors.purple),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4)))),
                     child: Container(
                       alignment: Alignment.center,
-                      width: 540,
-                      height: 60,
+                      width: 400,
                       child: Text(
-                        '$_dataInicial',
-                        style: TextStyle(
+                        '$_dataInicialFormat',
+                        style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w600,
                             color: Colors.white),
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Data final',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                  OutlinedButton(
+                    onPressed: () => {_obterValorDataFinal()},
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(width: 2, color: Colors.purple),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4)))),
+                    child: Container(
+                      width: 400,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '$_dataFinalFormat',
+                        style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -133,74 +171,28 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Data final',
+                    'Diferença de dias entre as datas',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  ElevatedButton(
-                    onPressed: () => {
-                      _obterValorDataFinal(),
-                    },
+                  OutlinedButton(
+                    onPressed: () => {_obterValorDataFinal()},
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(width: 2, color: Colors.purple),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4)))),
                     child: Container(
+                      width: 400,
                       alignment: Alignment.center,
-                      width: 540,
-                      height: 60,
-                      child: Text(
-                        '$_dataFinal',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Diferença de dias entre as datas',
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 540,
-                      height: 60,
                       child: Text(
                         '${diferencaEntreDatas.inDays}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w600,
                             color: Colors.white),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
                       ),
                     ),
                   ),
@@ -216,6 +208,14 @@ class _HomePageState extends State<HomePage> {
                   diferencaEntreDatas = _dataFinal.difference(_dataInicial);
                 }),
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+              ),
               child: Container(
                 alignment: Alignment.center,
                 width: 400,
@@ -226,14 +226,6 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                       color: Colors.white),
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
                 ),
               ),
             ),
