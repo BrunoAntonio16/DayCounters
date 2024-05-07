@@ -1,14 +1,14 @@
 import 'package:day_counters/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginAtleta extends StatelessWidget {
-  const LoginAtleta({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 60,
           left: 40,
           right: 40,
@@ -21,12 +21,12 @@ class LoginAtleta extends StatelessWidget {
               height: 128,
               child: Image.asset("assets/images/logo_enercicio.png"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "E-mail",
                 labelStyle: TextStyle(
                   color: Colors.white,
@@ -36,13 +36,13 @@ class LoginAtleta extends StatelessWidget {
               ),
               style: TextStyle(fontSize: 15, color: Colors.white),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
               keyboardType: TextInputType.text,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Senha",
                 labelStyle: TextStyle(
                   color: Colors.white,
@@ -50,15 +50,15 @@ class LoginAtleta extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              style: TextStyle(fontSize: 15, color: Colors.white),
+              style: const TextStyle(fontSize: 15, color: Colors.white),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Container(
               height: 60,
               alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -74,10 +74,25 @@ class LoginAtleta extends StatelessWidget {
               ),
               child: SizedBox.expand(
                 child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.transparent,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "Login",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -87,28 +102,13 @@ class LoginAtleta extends StatelessWidget {
                       ),
                       Container(
                         child: SizedBox(
-                          child:
-                              Image.asset("assets/images/logo_enercicio.png"),
                           height: 28,
                           width: 28,
+                          child:
+                              Image.asset("assets/images/logo_enercicio.png"),
                         ),
                       )
                     ],
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5),
-                      ),
-                    ),
                   ),
                 ),
               ),
