@@ -1,8 +1,19 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:day_counters/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
+  String? emailAddress;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +36,11 @@ class LoginPage extends StatelessWidget {
               height: 20,
             ),
             TextFormField(
+              onChanged: (value) => {
+                setState(() {
+                  emailAddress = value;
+                })
+              },
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 labelText: "E-mail",
@@ -34,12 +50,17 @@ class LoginPage extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              style: TextStyle(fontSize: 15, color: Colors.white),
+              style: const TextStyle(fontSize: 15, color: Colors.white),
             ),
             const SizedBox(
               height: 20,
             ),
             TextFormField(
+              onChanged: (value) => {
+                setState(() {
+                  password = value;
+                })
+              },
               keyboardType: TextInputType.text,
               obscureText: true,
               decoration: const InputDecoration(
@@ -75,9 +96,27 @@ class LoginPage extends StatelessWidget {
               child: SizedBox.expand(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    if(emailAddress == 'adminenercicio@gmail.com' && password == '123'){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                      );
+                    }else(
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          actions: [
+                            TextButton(
+                              onPressed: () => {
+                                Navigator.of(context).pop(),
+                              },
+                              child: const Text('Ok'),
+                            )
+                          ],
+                          title: const Text('Enercicio'),
+                          content: const Text('Email ou senha errados!!'),
+                        )
+                      )
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -119,3 +158,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
